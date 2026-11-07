@@ -29,7 +29,7 @@ public sealed class SupabaseApi
     {
         var r = new HttpRequestMessage(m, Config.SupabaseUrl + path);
         r.Headers.Add("apikey", Config.AnonKey);
-        r.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token ?? Config.AnonKey);
+        if (_token != null) r.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token);
         if (prefer != null) r.Headers.Add("Prefer", prefer);
         if (json != null) r.Content = new StringContent(json, Encoding.UTF8, "application/json");
         return r;
